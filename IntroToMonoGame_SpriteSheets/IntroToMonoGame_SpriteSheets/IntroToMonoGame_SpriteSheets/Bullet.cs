@@ -10,10 +10,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Flappy_Bat
 {
-
+    
     class Bullet : Sprite
     {
-        const string BULLET_ASSETNAME = "bullet";
+        public bool Visible {get;set;}
+    const string BULLET_ASSETNAME = "bullet";
 
         Vector2 mDirection;
         Vector2 mSpeed;
@@ -30,6 +31,7 @@ namespace Flappy_Bat
             base.LoadContent(theContentManager, BULLET_ASSETNAME);
             Scale = 0.5f;
             FrameSize = Size.Width;
+            Visible = true;
         }
 
         public void Update(GameTime theGameTime)
@@ -39,6 +41,7 @@ namespace Flappy_Bat
 
         public override void Draw(SpriteBatch theSpriteBatch)
         {
+            if (Visible)
             base.Draw(theSpriteBatch);
         }
 

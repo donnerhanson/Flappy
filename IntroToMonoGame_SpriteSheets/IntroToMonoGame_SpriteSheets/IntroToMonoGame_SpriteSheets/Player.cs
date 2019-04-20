@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Flappy_Bat;
-using Flappy_Bat.Content;
+using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 #pragma warning: "DELTA TIME FOR DRIFT/GRAVITY"
 
@@ -57,7 +52,7 @@ namespace Flappy_Bat
         pState mCurrentState = pState.Flying;
         public int getCurrState()
         {
-            
+
             return (int)mCurrentState;
         }
 
@@ -99,7 +94,7 @@ namespace Flappy_Bat
         // PLAYER FRAME SIZE
         const int PLAYER_FRAME_SIZE = 48;
 
-      
+
 
         public List<Bullet> mBullets = new List<Bullet>();
         private sbyte bulletFlip = 1;
@@ -130,7 +125,7 @@ namespace Flappy_Bat
             Position = new Vector2(START_POSITION_X, START_POSITION_Y);
             LoadFallingBrick();
 
-            
+
 
             base.LoadContent(theContentManager, PLAYER_ASSETNAME);
 
@@ -139,8 +134,8 @@ namespace Flappy_Bat
 
         private void LoadFallingBrick()
         {
-            GameContent gameContent = new GameContent(mContentManager); 
-                SpriteBatch sB = new SpriteBatch(graphicsDevice);
+            GameContent gameContent = new GameContent(mContentManager);
+            SpriteBatch sB = new SpriteBatch(graphicsDevice);
             fallingBrick = new BrickDrop(
                             (float)2f * (ScreenGlobals.SCREEN_WIDTH / 3f),
                             (float)(ScreenGlobals.SCREEN_HEIGHT / 3),
@@ -151,7 +146,7 @@ namespace Flappy_Bat
         public override void Draw(SpriteBatch theSpriteBatch)
         {
 
-       
+
             foreach (Bullet aBullet in mBullets)
             {
                 aBullet.Draw(theSpriteBatch);
@@ -167,11 +162,11 @@ namespace Flappy_Bat
 
             theSpriteBatch.Draw(mSpriteTexture, Position,
                 new Rectangle(0 + (FrameSize * FrameNum),
-                (int)mCurrentFacing * FrameSize, FrameSize, mSpriteTexture.Height/4),
+                (int)mCurrentFacing * FrameSize, FrameSize, mSpriteTexture.Height / 4),
                 Color.White, rotation, Vector2.Zero, Scale, SpriteEffects.None, 0.0f);
 
             if (fallingBrick != null)
-                    fallingBrick.Draw();
+                fallingBrick.Draw();
         }
 
         public void Update(GameTime theGameTime)
@@ -188,14 +183,14 @@ namespace Flappy_Bat
             base.Update(theGameTime, mSpeed, mDirection);
 
             /* Stop the player from moving off the screen correction */
-          // HORIZONTAL PLAYER POSITION DOES NOT CHANGE
+            // HORIZONTAL PLAYER POSITION DOES NOT CHANGE
 
             // VERTICAL POSITION - if this is reached player = DEAD
-            if (Position.Y >= graphicsDevice.Viewport.Height - Size.Height/4)
+            if (Position.Y >= graphicsDevice.Viewport.Height - Size.Height / 4)
             {
-                Position.Y = graphicsDevice.Viewport.Height - Size.Height/4;
+                Position.Y = graphicsDevice.Viewport.Height - Size.Height / 4;
                 mCurrentState = pState.Dead;
-                
+
             }
 
             if (Position.Y < 0)
@@ -212,7 +207,7 @@ namespace Flappy_Bat
                 FrameNum = (FrameNum + 1) % FRAME_COUNT;
             }
 
-            
+
 
 
             if (FrameNum >= FRAME_COUNT)
@@ -251,48 +246,91 @@ namespace Flappy_Bat
             }
 
 
-                if ((mCurrentState == pState.Flying || mCurrentState == pState.Jumping) && beginningSpacePressed == true)
+            if ((mCurrentState == pState.Flying || mCurrentState == pState.Jumping) && beginningSpacePressed == true)
+            {
+                mSpeed = Vector2.Zero;
+                mDirection = Vector2.Zero;
+
+                if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true)
                 {
-                    mSpeed = Vector2.Zero;
-                    mDirection = Vector2.Zero;
-
-                    if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true)
-                    {
 
 
-                        mCurrentFacing = Facing.Up;
-                        mSpeed.Y = PLAYER_SPEED;
-                        mDirection.Y = MOVE_UP;
-                        rotation = 0;
+                    mCurrentFacing = Facing.Up;
+                    mSpeed.Y = PLAYER_SPEED;
+                    mDirection.Y = MOVE_UP;
+                    rotation = 0;
 
-                        mCurrentState = pState.Jumping;
-
-                    }
-                    else if (mCurrentState == pState.Dead)
-                    {
-                        mSpeed.Y = 0;
-                        mDirection.Y = 0;
-                        rotation = 0;
-                    }
-
-                    else
-                    {
-                        mSpeed.Y = PLAYER_SPEED;
-                        mDirection.Y = MOVE_DOWN;
-                        mCurrentFacing = Facing.Right;
-                        if (rotation < .5f && Position.Y != graphicsDevice.Viewport.Height - Size.Height)
-                            rotation -= MathHelper.ToRadians(rotationVelocity);
-                        else if (Position.Y == graphicsDevice.Viewport.Height - Size.Height)
-                        {
-                            rotation = 0;
-                        }
-
-
-                    }
+                    mCurrentState = pState.Jumping;
 
                 }
-                
-            
+                else if (mCurrentState == pState.Dead)
+                {
+                    mSpeed.Y = 0;
+                    mDirection.Y = 0;
+                    rotation = 0;
+                }
+
+                else
+                {
+                    mSpeed.Y = PLAYER_SPEED;
+                    mDirection.Y = MOVE_DOWN;
+                    mCurrentFacing = Facing.Right;
+                    if (rotation < .5f && Position.Y != graphicsDevice.Viewport.Height - Size.Height)
+                        rotation -= MathHelper.ToRadians(rotationVelocity);
+                    else if (Position.Y == graphicsDevice.Viewport.Height - Size.Height)
+                    {
+                        rotation = 0;
+                    }
+
+
+                }
+                // check for environment hit
+                // Player
+                Rectangle playerSpriteLocation = new Rectangle(
+                    (int)Position.X,
+                    (int)Position.Y,
+                    (int)Size.Width,
+                    (int)Size.Height
+                    );
+                //Brick
+                Rectangle BrickRect = new Rectangle(
+                    (int)fallingBrick.X,
+                    (int)Position.Y,
+                    (int)Size.Width,
+                    (int)Size.Height
+                    );
+                bool hitBrick = false;
+
+                if (hitBrick == false)
+                {
+                    // loop through bulltets
+                    foreach(Bullet bullet in mBullets)
+                    {
+                        if (fallingBrick.Visible)
+                        {
+                            Rectangle bulletRect = new Rectangle(
+                                (int)bullet.Position.X, 
+                                (int)bullet.Position.Y, 
+                                (int)bullet.Size.Width, (int)bullet.Size.Height);
+                            if (HitTest(bulletRect, BrickRect))
+                            {
+                                //PlaySound(gameContent.brickSound);
+                                fallingBrick.Visible = false;
+                                bullet.Visible = false;
+
+                                ++score;
+                                hitBrick = true;
+                                break;
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+
+
         }
         public static bool HitTest(Rectangle r1, Rectangle r2)
         {
@@ -317,7 +355,7 @@ namespace Flappy_Bat
                 {
                     base.LoadContent(theContentManager, PLAYER_FINAL_ASSETNAME);
                 }
-                if(mCurrentState == pState.Dead)
+                if (mCurrentState == pState.Dead)
                 {
                     base.LoadContent(theContentManager, "");
                 }
@@ -363,15 +401,20 @@ namespace Flappy_Bat
                 {
                     Bullet aBullet = new Bullet();
                     aBullet.LoadContent(mContentManager);
-                    aBullet.Fire(Position + new Vector2((FrameSize / 2 - aBullet.Size.Width / 2) + (bulletFlip * 12), 3),
-                        new Vector2(200, 200), new Vector2(1, 0), type);
+                    aBullet.Fire(
+                        Position + new Vector2(
+                            (FrameSize / 2 - aBullet.Size.Width / 2) + (bulletFlip * 12), 3),
+                        new Vector2(ScreenGlobals.BULLET_SPEED_X, ScreenGlobals.BULLET_SPEED_Y), 
+                        new Vector2(1, 0), 
+                        type
+                        );
                     mBullets.Add(aBullet);
 
                     bulletFlip *= -1;
                 }
             }
         }
-      public Vector2 getPlayerSpeed()
+        public Vector2 getPlayerSpeed()
         {
             return mSpeed;
         }
