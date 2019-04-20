@@ -1,0 +1,383 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Flappy_Bat;
+using Flappy_Bat.Content;
+
+#pragma warning: "DELTA TIME FOR DRIFT/GRAVITY"
+
+namespace Flappy_Bat
+{
+    class Player : Sprite
+    {
+        // surroundings to manage
+        BrickDrop fallingBrick;
+
+
+
+        const string PLAYER_ASSETNAME = "!$ReBat";
+        const string PLAYER_NEXT_ASSETNAME = "!$ReBat_se";
+        const string PLAYER_FINAL_ASSETNAME = "!$ReBat_xe";
+        const int START_POSITION_X = (ScreenGlobals.SCREEN_WIDTH - 1) / 4;
+        const int START_POSITION_Y = (ScreenGlobals.SCREEN_HEIGHT + 1) / 2;
+        const int PLAYER_SPEED = ScreenGlobals.GAME_SPEED * 3;
+        const int MOVE_UP = -1;
+        const int MOVE_DOWN = 1;
+        const int MOVE_LEFT = -1;
+        const int MOVE_RIGHT = 1;
+
+        const int SECOND_SKIN_SCORE = 10;
+        const int THIRD_SKIN_SCORE = 20;
+
+        const bool ICE = false;
+        const bool FIRE = true;
+
+        const int FRAME_COUNT = 3;
+        TimeSpan FrameLength = TimeSpan.FromSeconds(0.45 / (double)FRAME_COUNT);
+        TimeSpan FrameTimer = TimeSpan.Zero;
+
+
+        // USE FOR GETTING TIME BETWEEN SPACE BAR
+        private const float _delay = 5; // seconds
+        private float _remainingDelay = _delay;
+
+        enum pState
+        {
+            Flying,
+            Jumping,
+            Dead,
+            Pause
+        }
+        pState mCurrentState = pState.Flying;
+        public int getCurrState()
+        {
+            
+            return (int)mCurrentState;
+        }
+
+        enum Facing
+        {
+            Down,
+            Left,
+            Right,
+            Up
+        }
+
+        public int getDead()
+        {
+            return (int)pState.Dead;
+        }
+        public int getPause()
+        {
+            return (int)pState.Pause;
+        }
+        Facing mCurrentFacing = Facing.Right;
+
+        bool beginningSpacePressed = false;
+
+        Vector2 mDirection = Vector2.Zero;
+        Vector2 mSpeed = Vector2.Zero;
+
+
+        KeyboardState mPreviousKeyboardState;
+        GamePadState mPreviousGamepadState;
+
+        ContentManager mContentManager;
+
+        private int FrameNum = 0;
+
+        // rotation of sprite
+        private float rotationVelocity = -2.0f;
+        private float rotation = 0.0f;
+
+        // PLAYER FRAME SIZE
+        const int PLAYER_FRAME_SIZE = 48;
+
+      
+
+        public List<Bullet> mBullets = new List<Bullet>();
+        private sbyte bulletFlip = 1;
+
+        private int score = 0;
+
+
+
+
+
+        public Player(GraphicsDevice gDevice)
+        {
+            graphicsDevice = gDevice;
+            FrameSize = PLAYER_FRAME_SIZE; // the player sprite frames are 48x48
+        }
+
+        public void LoadContent(ContentManager theContentManager)
+        {
+            mContentManager = theContentManager;
+
+            //Since the player "owns" their bullets, when we update the player,
+            //we update all of the bullets, including drawing them
+            foreach (Bullet aBullet in mBullets)
+            {
+                aBullet.LoadContent(theContentManager);
+            }
+
+            Position = new Vector2(START_POSITION_X, START_POSITION_Y);
+            LoadFallingBrick();
+
+            
+
+            base.LoadContent(theContentManager, PLAYER_ASSETNAME);
+
+
+        }
+
+        private void LoadFallingBrick()
+        {
+            GameContent gameContent = new GameContent(mContentManager); 
+                SpriteBatch sB = new SpriteBatch(graphicsDevice);
+            fallingBrick = new BrickDrop(
+                            (float)2f * (ScreenGlobals.SCREEN_WIDTH / 3f),
+                            (float)(ScreenGlobals.SCREEN_HEIGHT / 3),
+                            sB, gameContent
+                            );
+        }
+
+        public override void Draw(SpriteBatch theSpriteBatch)
+        {
+
+       
+            foreach (Bullet aBullet in mBullets)
+            {
+                aBullet.Draw(theSpriteBatch);
+            }
+
+
+            // The second param is a "source rectangle", meaning it wants to take a rectangular
+            // slice of the source content. The x position is the FrameSize (x width) multiplied by
+            // the frame number we currently want to display. The y value is always 0 (for horizontal
+            // sprite sheets) and then the x width and y height of the actual frame.
+
+
+
+            theSpriteBatch.Draw(mSpriteTexture, Position,
+                new Rectangle(0 + (FrameSize * FrameNum),
+                (int)mCurrentFacing * FrameSize, FrameSize, mSpriteTexture.Height/4),
+                Color.White, rotation, Vector2.Zero, Scale, SpriteEffects.None, 0.0f);
+
+            if (fallingBrick != null)
+                    fallingBrick.Draw();
+        }
+
+        public void Update(GameTime theGameTime)
+        {
+            KeyboardState aCurrentKeyboardState = Keyboard.GetState();
+            GamePadState aCurrentGamepadState = GamePad.GetState(PlayerIndex.One);
+
+            UpdateMovement(aCurrentKeyboardState);
+            UpdateBullet(theGameTime, aCurrentKeyboardState, aCurrentGamepadState);
+
+            mPreviousKeyboardState = aCurrentKeyboardState;
+            mPreviousGamepadState = aCurrentGamepadState;
+
+            base.Update(theGameTime, mSpeed, mDirection);
+
+            /* Stop the player from moving off the screen correction */
+          // HORIZONTAL PLAYER POSITION DOES NOT CHANGE
+
+            // VERTICAL POSITION - if this is reached player = DEAD
+            if (Position.Y >= graphicsDevice.Viewport.Height - Size.Height/4)
+            {
+                Position.Y = graphicsDevice.Viewport.Height - Size.Height/4;
+                mCurrentState = pState.Dead;
+                
+            }
+
+            if (Position.Y < 0)
+            {
+                Position.Y = 0;
+            }
+            /* End player off screen correction */
+
+            //
+            FrameTimer += theGameTime.ElapsedGameTime;
+            if (FrameTimer >= FrameLength)
+            {
+                FrameTimer = TimeSpan.Zero;
+                FrameNum = (FrameNum + 1) % FRAME_COUNT;
+            }
+
+            
+
+
+            if (FrameNum >= FRAME_COUNT)
+                FrameNum = 0;
+
+            if (score == 10 || score == 20)
+            {
+                UpdatePlayerSkin(theGameTime, mContentManager);
+            }
+            if (mCurrentState == pState.Jumping)
+            {
+                float timer = (float)theGameTime.ElapsedGameTime.TotalSeconds;
+
+                _remainingDelay -= timer;
+
+                if (_remainingDelay <= 0)
+                {
+                    LoadFallingBrick();
+                    _remainingDelay = _delay;
+                }
+            }
+
+            // update surroundings
+            if (fallingBrick != null)
+                fallingBrick.Update(theGameTime);
+
+        }
+
+        private void UpdateMovement(KeyboardState aCurrentKeyboardState)
+        {
+
+
+            if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true)
+            {
+                beginningSpacePressed = true;
+            }
+
+
+                if ((mCurrentState == pState.Flying || mCurrentState == pState.Jumping) && beginningSpacePressed == true)
+                {
+                    mSpeed = Vector2.Zero;
+                    mDirection = Vector2.Zero;
+
+                    if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true)
+                    {
+
+
+                        mCurrentFacing = Facing.Up;
+                        mSpeed.Y = PLAYER_SPEED;
+                        mDirection.Y = MOVE_UP;
+                        rotation = 0;
+
+                        mCurrentState = pState.Jumping;
+
+                    }
+                    else if (mCurrentState == pState.Dead)
+                    {
+                        mSpeed.Y = 0;
+                        mDirection.Y = 0;
+                        rotation = 0;
+                    }
+
+                    else
+                    {
+                        mSpeed.Y = PLAYER_SPEED;
+                        mDirection.Y = MOVE_DOWN;
+                        mCurrentFacing = Facing.Right;
+                        if (rotation < .5f && Position.Y != graphicsDevice.Viewport.Height - Size.Height)
+                            rotation -= MathHelper.ToRadians(rotationVelocity);
+                        else if (Position.Y == graphicsDevice.Viewport.Height - Size.Height)
+                        {
+                            rotation = 0;
+                        }
+
+
+                    }
+
+                }
+                
+            
+        }
+        public static bool HitTest(Rectangle r1, Rectangle r2)
+        {
+            if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
+                return true;
+            else
+                return false;
+        }
+        private void UpdatePlayerSkin(GameTime theGameTime, ContentManager theContentManager)
+        {
+            if (mCurrentState != pState.Dead)
+            {
+
+
+                if (score == SECOND_SKIN_SCORE)
+                {
+
+                    base.LoadContent(mContentManager, PLAYER_NEXT_ASSETNAME);
+
+                }
+                if (score == THIRD_SKIN_SCORE)
+                {
+                    base.LoadContent(theContentManager, PLAYER_FINAL_ASSETNAME);
+                }
+                if(mCurrentState == pState.Dead)
+                {
+                    base.LoadContent(theContentManager, "");
+                }
+            }
+        }
+
+        private void UpdateBullet(GameTime theGameTime, KeyboardState aCurrentKeyboardState, GamePadState aCurrentGamepadState)
+        {
+            foreach (Bullet aBullet in mBullets)
+            {
+                aBullet.Update(theGameTime);
+            }
+
+
+            if (((aCurrentKeyboardState.IsKeyDown(Keys.F) == true && mPreviousKeyboardState.IsKeyDown(Keys.F) == false)) ||
+                (aCurrentGamepadState.Buttons.A == ButtonState.Pressed && mPreviousGamepadState.Buttons.A == ButtonState.Released))
+            {
+
+                score++;
+                ShootBullet(FIRE);
+            }
+
+            if ((aCurrentKeyboardState.IsKeyDown(Keys.S) == true && mPreviousKeyboardState.IsKeyDown(Keys.S) == false))
+            {
+
+                score++;
+                ShootBullet(ICE);
+            }
+        }
+
+        private void ShootBullet(bool type)
+        {
+            if (mCurrentState == pState.Flying || mCurrentState == pState.Jumping)
+            {
+                bool aCreateNew = true;
+                for (int i = 0; i < mBullets.Count; i++)
+                {
+                    if (mBullets[i].Position.Y < 0)
+                        mBullets.RemoveAt(i);
+                }
+
+                if (aCreateNew == true)
+                {
+                    Bullet aBullet = new Bullet();
+                    aBullet.LoadContent(mContentManager);
+                    aBullet.Fire(Position + new Vector2((FrameSize / 2 - aBullet.Size.Width / 2) + (bulletFlip * 12), 3),
+                        new Vector2(200, 200), new Vector2(1, 0), type);
+                    mBullets.Add(aBullet);
+
+                    bulletFlip *= -1;
+                }
+            }
+        }
+      public Vector2 getPlayerSpeed()
+        {
+            return mSpeed;
+        }
+        public Vector2 getPlayerDir()
+        {
+            return mDirection;
+        }
+    }
+}

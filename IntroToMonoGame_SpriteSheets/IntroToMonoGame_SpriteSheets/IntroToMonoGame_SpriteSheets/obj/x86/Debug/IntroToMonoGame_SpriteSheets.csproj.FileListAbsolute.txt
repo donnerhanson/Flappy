@@ -1,0 +1,55 @@
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\myplane_strip3.xnb
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\IntroToMonoGame_SpriteSheets.exe
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\IntroToMonoGame_SpriteSheets.pdb
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.csprojAssemblyReference.cache
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.csproj.CoreCompileInputs.cache
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.csproj.CopyComplete
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.exe
+C:\Users\boyd1\Documents\Visual Studio 2017\Projects\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.pdb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\IntroToMonoGame_SpriteSheets.exe
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\IntroToMonoGame_SpriteSheets.pdb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.csprojAssemblyReference.cache
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.csproj.CoreCompileInputs.cache
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.csproj.CopyComplete
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.exe
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\obj\x86\Debug\IntroToMonoGame_SpriteSheets.pdb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\!$ReBat.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\bullet.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\!$ReBat_se.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\!$ReBat_xe.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\brick.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\Fonts\Arial20.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\Controls\Button.xnb
+C:\Users\Donner\source\repos\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\IntroToMonoGame_SpriteSheets\bin\Windows\x86\Debug\Content\Fonts\TimesNewRoman20.xnb
