@@ -53,6 +53,7 @@ namespace Flappy_Bat.Content
 
         private Texture2D imgBrick { get; set; } // cached image of brick
         private SpriteBatch spriteBatch; // allows us to write on backbuffer when we need to draw self
+        private GameContent gameContent;
 
         public Brick(float x, float y, Color colorIn, SpriteBatch spriteBatch, GameContent gameContent)
         {
@@ -84,6 +85,14 @@ namespace Flappy_Bat.Content
                 isFire = true;
             }
 
+        }
+
+        public Brick(float x, float y, SpriteBatch spriteBatch, GameContent gameContent)
+        {
+            X = x;
+            Y = y;
+            this.spriteBatch = spriteBatch;
+            this.gameContent = gameContent;
         }
 
         public static bool HitTest(Rectangle r1, Rectangle r2)

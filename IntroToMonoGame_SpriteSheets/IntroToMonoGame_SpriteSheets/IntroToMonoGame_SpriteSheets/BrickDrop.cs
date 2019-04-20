@@ -11,8 +11,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Flappy_Bat
 {
-    class BrickDrop
+    class BrickDrop : Brick
     {
+        public new bool Visible { get; set; } // does brick still exist
         // 7 rows, each with own color
         // 10 per row
         // 3 blank at top
@@ -26,13 +27,13 @@ namespace Flappy_Bat
         }
         private Brick FallingBrick;
 
-        public BrickDrop(float x, float y, SpriteBatch spriteBatch, GameContent gameContent)
+        public BrickDrop(float x, float y, SpriteBatch spriteBatch, GameContent gameContent) : base(x,y,spriteBatch,gameContent)
         {
 
             float brickX = x;
             float brickY = y;
             Color color = Color.Firebrick;
-
+            Visible = true;
             int i = GenRandInt();
             switch (i)
             {
@@ -49,8 +50,9 @@ namespace Flappy_Bat
 
         }
 
-        public void Draw()
+        public new void Draw()
         {
+            if (Visible)
             FallingBrick.Draw();
 
 

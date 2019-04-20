@@ -79,7 +79,7 @@ namespace Flappy_Bat
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
          
-             _currentState = new MenuState(this, graphics.GraphicsDevice, Content);
+             _currentState = new GameState(this, graphics.GraphicsDevice, Content);
             //_currentState.LoadContent();
 
                 

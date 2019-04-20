@@ -11,6 +11,7 @@ namespace Flappy_Bat
 {
     class Sprite
     {
+        
         // The current position of the Sprite
         public Vector2 Position = new Vector2(0, 0);
 
