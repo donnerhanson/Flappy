@@ -11,7 +11,7 @@ namespace Flappy_Bat
 {
     class Sprite
     {
-        
+        public bool Visible { get; set; }
         // The current position of the Sprite
         public Vector2 Position = new Vector2(0, 0);
 
@@ -54,11 +54,13 @@ namespace Flappy_Bat
                 mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
                 AssetName = theAssetName;
                 Size = new Rectangle(0, 0, (int)(mSpriteTexture.Width * Scale), (int)(mSpriteTexture.Height * Scale));
+            Visible = true;
         }
 
         // Draw the sprite to the screen
         public virtual void Draw(SpriteBatch theSpriteBatch)
         {
+            if(Visible)
             theSpriteBatch.Draw(mSpriteTexture, Position,
                 new Rectangle(0, 0, mSpriteTexture.Width, mSpriteTexture.Height),
                 Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 0);

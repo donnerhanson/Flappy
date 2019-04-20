@@ -68,6 +68,12 @@
 /processorParam:TextureFormat=Color
 /build:brick.png
 
+#begin BrickSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BrickSound.wav
+
 #begin bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor

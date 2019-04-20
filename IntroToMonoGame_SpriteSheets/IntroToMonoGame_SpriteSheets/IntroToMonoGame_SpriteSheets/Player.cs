@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -39,7 +40,7 @@ namespace Flappy_Bat
 
 
         // USE FOR GETTING TIME BETWEEN SPACE BAR
-        private const float _delay = 5; // seconds
+        private const float _delay = 3; // seconds
         private float _remainingDelay = _delay;
 
         enum pState
@@ -303,8 +304,16 @@ namespace Flappy_Bat
 
                 if (hitBrick == false)
                 {
+                    // check player and brick detection
+                   if (fallingBrick.Visible)
+                    {
+                        if (HitTest(playerSpriteLocation, BrickRect))
+                        {
+                            mCurrentState = pState.Dead;
+                        }
+                    }
                     // loop through bulltets
-                    foreach(Bullet bullet in mBullets)
+                    foreach (Bullet bullet in mBullets)
                     {
                         if (fallingBrick.Visible)
                         {
@@ -314,11 +323,32 @@ namespace Flappy_Bat
                                 (int)bullet.Size.Width, (int)bullet.Size.Height);
                             if (HitTest(bulletRect, BrickRect))
                             {
-                                //PlaySound(gameContent.brickSound);
-                                fallingBrick.Visible = false;
-                                bullet.Visible = false;
+                                //
+                                // if both fire
+                                GameContent gameContent = new GameContent(mContentManager);
+                                if (bullet.isFire() == true && fallingBrick.fire == true)
+                                {
+                                    PlaySound(gameContent.brickSound);
+                                    fallingBrick.Visible = false;
+                                    bullet.Visible = false;
 
-                                ++score;
+                                    ++score;
+
+                                }
+                                // if both ice
+                                else if (!bullet.isFire() == true && !fallingBrick.fire == true)
+                                {
+                                    PlaySound(gameContent.brickSound);
+                                    fallingBrick.Visible = false;
+                                    bullet.Visible = false;
+
+                                    ++score;
+
+                                }
+                                else // bullet hit but was wrong type
+                                {
+                                    bullet.Visible = false;
+                                }
                                 hitBrick = true;
                                 break;
                             }
@@ -374,14 +404,13 @@ namespace Flappy_Bat
                 (aCurrentGamepadState.Buttons.A == ButtonState.Pressed && mPreviousGamepadState.Buttons.A == ButtonState.Released))
             {
 
-                score++;
                 ShootBullet(FIRE);
             }
 
             if ((aCurrentKeyboardState.IsKeyDown(Keys.S) == true && mPreviousKeyboardState.IsKeyDown(Keys.S) == false))
             {
 
-                score++;
+        
                 ShootBullet(ICE);
             }
         }
@@ -422,5 +451,14 @@ namespace Flappy_Bat
         {
             return mDirection;
         }
+
+        public static void PlaySound(SoundEffect sound)
+        {
+            float volume = 1;
+            float pitch = 0.0f;
+            float pan = 0.0f;
+            sound.Play(volume, pitch, pan);
+        }
+
     }
 }

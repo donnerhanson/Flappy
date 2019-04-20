@@ -122,8 +122,14 @@ namespace Flappy_Bat
                 
                 _nextState = null;
             }
-            
-          
+
+            // GAME OVER
+            if (mPlayerSprite.getCurrState() == mPlayerSprite.getDead())
+            {
+                // probably add a game over state or menu
+                Exit();
+            }
+
             if (_currentState.GetStateType()==true)
             {
                 _currGameState = GAME_STATE_ENUM.Playing;
@@ -143,12 +149,7 @@ namespace Flappy_Bat
             // PAUSE
             // ADD A MENU HERE
 
-            // GAME OVER
-            if (mPlayerSprite.getCurrState() == mPlayerSprite.getDead())
-            {
-                // probably add a game over state or menu
-                Exit();
-            }
+           
             _currentState.Update(gameTime);
             base.Update(gameTime);
         }

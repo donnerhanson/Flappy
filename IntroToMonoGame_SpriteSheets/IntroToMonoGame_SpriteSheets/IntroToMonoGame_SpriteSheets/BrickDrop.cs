@@ -17,7 +17,7 @@ namespace Flappy_Bat
         // 7 rows, each with own color
         // 10 per row
         // 3 blank at top
-        // each brick is 50 x 16
+        // each brick is 16 x 50
 
         private int GenRandInt()
         {
@@ -26,6 +26,7 @@ namespace Flappy_Bat
             return nextValue;
         }
         private Brick FallingBrick;
+        public bool fire { get; set; }
 
         public BrickDrop(float x, float y, SpriteBatch spriteBatch, GameContent gameContent) : base(x,y,spriteBatch,gameContent)
         {
@@ -39,9 +40,11 @@ namespace Flappy_Bat
             {
                 case 0:
                     color = Color.Red;
+                    fire = true;
                     break;
                 case 1:
                     color = Color.Blue;
+                    fire = false;
                     break;
             }
 

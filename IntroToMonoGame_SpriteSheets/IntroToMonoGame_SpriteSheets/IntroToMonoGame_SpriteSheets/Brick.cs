@@ -68,7 +68,7 @@ namespace Flappy_Bat.Content
 
             this.spriteBatch = spriteBatch;
             Visible = true;
-
+            
             if (colorIn == Color.Firebrick)
             {
                 this.color = Color.Firebrick;
@@ -89,19 +89,37 @@ namespace Flappy_Bat.Content
 
         public Brick(float x, float y, SpriteBatch spriteBatch, GameContent gameContent)
         {
-            X = x;
-            Y = y;
+            currState = State.Falling;
+
+            X = GenRandX();
+            Y = 0;
+            imgBrick = gameContent.imgBrick;
+            Width = imgBrick.Width;
+            Height = imgBrick.Height;
             this.spriteBatch = spriteBatch;
             this.gameContent = gameContent;
+            Visible = true;
+
+            Color colorIn = new Color(178, 34, 34, 255);
+            if (colorIn == Color.Firebrick)
+            {
+                this.color = Color.Firebrick;
+                isFire = true;
+            }
+            else if (colorIn == Color.Blue)
+            {
+                this.color = Color.Blue;
+                isFire = false;
+            }
+            else
+            {
+                this.color = Color.Firebrick;
+                isFire = true;
+            }
+
         }
 
-        public static bool HitTest(Rectangle r1, Rectangle r2)
-        {
-            if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
-                return true;
-            else
-                return false;
-        }
+      
         public void Draw()
         {
             spriteBatch.Begin();
@@ -109,7 +127,7 @@ namespace Flappy_Bat.Content
             if (currState == State.Falling && Visible)
             {
                 spriteBatch.Draw(imgBrick, new Vector2(X, Y),
-                    null, color, MathHelper.ToRadians(90.0f),
+                    null, color, 0.0f,
                     new Vector2(Width / 2f, Height / 2f), 1.0f, SpriteEffects.None, 0);
             }
             spriteBatch.End();
@@ -119,7 +137,7 @@ namespace Flappy_Bat.Content
         {
             // Move the brick down by the fall speed given to us in the constructor.
             Y += (int)fallSpeed*3;
-            X -= (int)fallSpeed;
+            X -= (int)fallSpeed*3;
 
             if (Y >= ScreenGlobals.SCREEN_HEIGHT)
             {

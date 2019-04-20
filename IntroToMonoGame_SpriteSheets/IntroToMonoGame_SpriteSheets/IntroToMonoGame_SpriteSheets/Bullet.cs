@@ -53,7 +53,7 @@ namespace Flappy_Bat
             mDirection = theDirection;
             mType = type;
         }
-        bool isFire()
+        public bool isFire()
         {
             return mType;
         }
