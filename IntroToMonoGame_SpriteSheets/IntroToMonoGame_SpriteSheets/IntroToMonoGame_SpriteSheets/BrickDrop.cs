@@ -47,7 +47,7 @@ namespace Flappy_Bat
                     fire = false;
                     break;
             }
-
+            // X is overridden anyway with rand and Y is always 0 could get rid of that but base sprite needs the x,y
             FallingBrick = new Brick(brickX, brickY, color, spriteBatch, gameContent);
 
 

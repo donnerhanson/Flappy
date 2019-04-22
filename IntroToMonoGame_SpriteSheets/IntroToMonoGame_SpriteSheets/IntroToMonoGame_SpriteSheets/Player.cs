@@ -137,6 +137,7 @@ namespace Flappy_Bat
         {
             GameContent gameContent = new GameContent(mContentManager);
             SpriteBatch sB = new SpriteBatch(graphicsDevice);
+            // 
             fallingBrick = new BrickDrop(
                             (float)2f * (ScreenGlobals.SCREEN_WIDTH / 3f),
                             (float)(ScreenGlobals.SCREEN_HEIGHT / 3f),
@@ -252,11 +253,7 @@ namespace Flappy_Bat
             {
                 // check player and brick detection
                 if (fallingBrick.Visible)
-                {
-                    //if (HitTest(playerSpriteLocation, BrickRect))
-                    {
-                        //  mCurrentState = pState.Dead;
-                    }
+                { 
 
                     // loop through bulltets
                     if (mBullets.Count >= 1)
@@ -318,6 +315,40 @@ namespace Flappy_Bat
             }
         }
 
+        private void CheckPlayerBrickCrash()
+        {
+            this.Origin.X = (float)this.FrameSize / 2.0f;
+            this.Origin.Y = (float)this.FrameSize / 2.0f;
+            // Player
+            
+            Rectangle playerSpriteLocation = new Rectangle(
+                (int)this.Position.X,
+                (int)this.Position.Y,
+                (int)((float)this.Size.Width/3.0f),
+                (int)((float)this.Size.Height/4.0f)
+                );
+
+            if (fallingBrick.Visible)
+            {
+                //Brick 
+                //Each brick is 16 x 50
+                int orY = (int)fallingBrick.Origin.Y;
+                int orX = (int)fallingBrick.Origin.X;
+                Rectangle BrickRect = new Rectangle(
+                    (int)fallingBrick.GetX(),
+                    (int)fallingBrick.GetY() - orY - 1,
+                    (int)16,
+                    (int)50
+                    );
+
+                if (HitTest(playerSpriteLocation, BrickRect))
+                {
+                          mCurrentState = pState.Dead;
+                }
+
+                }
+            }
+
         private void UpdateMovement(KeyboardState aCurrentKeyboardState)
         {
 
@@ -367,13 +398,7 @@ namespace Flappy_Bat
 
                 }
                 // check for environment hit
-                // Player
-                Rectangle playerSpriteLocation = new Rectangle(
-                    (int)Position.X,
-                    (int)Position.Y,
-                    (int)Size.Width,
-                    (int)Size.Height
-                    );
+                CheckPlayerBrickCrash();
                
                 
 
