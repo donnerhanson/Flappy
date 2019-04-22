@@ -139,7 +139,7 @@ namespace Flappy_Bat
             SpriteBatch sB = new SpriteBatch(graphicsDevice);
             fallingBrick = new BrickDrop(
                             (float)2f * (ScreenGlobals.SCREEN_WIDTH / 3f),
-                            (float)(ScreenGlobals.SCREEN_HEIGHT / 3),
+                            (float)(ScreenGlobals.SCREEN_HEIGHT / 3f),
                             sB, gameContent
                             );
         }
@@ -147,7 +147,7 @@ namespace Flappy_Bat
         public override void Draw(SpriteBatch theSpriteBatch)
         {
 
-
+            CheckBulletBrickHit();
             foreach (Bullet aBullet in mBullets)
             {
                 aBullet.Draw(theSpriteBatch);
@@ -181,6 +181,8 @@ namespace Flappy_Bat
             mPreviousKeyboardState = aCurrentKeyboardState;
             mPreviousGamepadState = aCurrentGamepadState;
 
+            CheckBulletBrickHit();
+           
             base.Update(theGameTime, mSpeed, mDirection);
 
             /* Stop the player from moving off the screen correction */
@@ -231,10 +233,89 @@ namespace Flappy_Bat
                 }
             }
 
+            
+
+
             // update surroundings
             if (fallingBrick != null)
                 fallingBrick.Update(theGameTime);
+            CheckBulletBrickHit();
 
+
+        }
+
+        private void CheckBulletBrickHit()
+        {
+            bool hitBrick = false;
+
+            if (hitBrick == false)
+            {
+                // check player and brick detection
+                if (fallingBrick.Visible)
+                {
+                    //if (HitTest(playerSpriteLocation, BrickRect))
+                    {
+                        //  mCurrentState = pState.Dead;
+                    }
+
+                    // loop through bulltets
+                    if (mBullets.Count >= 1)
+                        foreach (Bullet bullet in mBullets)
+                        {
+                            if (bullet != null)
+                                if (fallingBrick.Visible)
+                                {
+                                    //Brick 
+                                    //Each brick is 16 x 50
+                                    int orY = (int)fallingBrick.Origin.Y;
+                                    int orX = (int)fallingBrick.Origin.X;
+                                    Rectangle BrickRect = new Rectangle(
+                                        (int)fallingBrick.GetX(),
+                                        (int)fallingBrick.GetY() - orY - 1,
+                                        (int)16,
+                                        (int)50
+                                        );
+                                    // bullet
+                                    Rectangle bulletRect = new Rectangle(
+                                        (int)bullet.Position.X,
+                                        (int)bullet.Position.Y,
+                                        (int)bullet.Size.Width, (int)bullet.Size.Height);
+                                    if (HitTest(bulletRect, BrickRect))
+                                    {
+                                        //
+                                        // if both fire
+                                         GameContent gameContent = new GameContent(mContentManager);
+                                        if (bullet.isFire() == true && fallingBrick.fire == true)
+                                        {
+                                            PlaySound(gameContent.brickSound);
+                                            fallingBrick.Visible = false;
+                                            bullet.Visible = false;
+
+                                            ++score;
+
+                                        }
+                                        // if both ice
+                                        else if ((!bullet.isFire() == true) && (!fallingBrick.fire == true))
+                                        {
+                                            PlaySound(gameContent.brickSound);
+                                            fallingBrick.Visible = false;
+                                            bullet.Visible = false;
+
+                                            ++score;
+
+                                        }
+                                        else // bullet hit but was wrong type
+                                        {
+                                            bullet.Visible = false;
+                                        }
+                                        hitBrick = true;
+                                        break;
+                                    }
+                                }
+
+                        }
+                }
+            }
         }
 
         private void UpdateMovement(KeyboardState aCurrentKeyboardState)
@@ -293,69 +374,8 @@ namespace Flappy_Bat
                     (int)Size.Width,
                     (int)Size.Height
                     );
-                //Brick
-                Rectangle BrickRect = new Rectangle(
-                    (int)fallingBrick.X,
-                    (int)Position.Y,
-                    (int)Size.Width,
-                    (int)Size.Height
-                    );
-                bool hitBrick = false;
-
-                if (hitBrick == false)
-                {
-                    // check player and brick detection
-                   if (fallingBrick.Visible)
-                    {
-                        if (HitTest(playerSpriteLocation, BrickRect))
-                        {
-                            mCurrentState = pState.Dead;
-                        }
-                    }
-                    // loop through bulltets
-                    foreach (Bullet bullet in mBullets)
-                    {
-                        if (fallingBrick.Visible)
-                        {
-                            Rectangle bulletRect = new Rectangle(
-                                (int)bullet.Position.X, 
-                                (int)bullet.Position.Y, 
-                                (int)bullet.Size.Width, (int)bullet.Size.Height);
-                            if (HitTest(bulletRect, BrickRect))
-                            {
-                                //
-                                // if both fire
-                                GameContent gameContent = new GameContent(mContentManager);
-                                if (bullet.isFire() == true && fallingBrick.fire == true)
-                                {
-                                    PlaySound(gameContent.brickSound);
-                                    fallingBrick.Visible = false;
-                                    bullet.Visible = false;
-
-                                    ++score;
-
-                                }
-                                // if both ice
-                                else if (!bullet.isFire() == true && !fallingBrick.fire == true)
-                                {
-                                    PlaySound(gameContent.brickSound);
-                                    fallingBrick.Visible = false;
-                                    bullet.Visible = false;
-
-                                    ++score;
-
-                                }
-                                else // bullet hit but was wrong type
-                                {
-                                    bullet.Visible = false;
-                                }
-                                hitBrick = true;
-                                break;
-                            }
-
-                        }
-                    }
-                }
+               
+                
 
 
             }
@@ -365,7 +385,7 @@ namespace Flappy_Bat
         public static bool HitTest(Rectangle r1, Rectangle r2)
         {
             if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
-                return true;
+                 return true;
             else
                 return false;
         }
@@ -398,6 +418,7 @@ namespace Flappy_Bat
             {
                 aBullet.Update(theGameTime);
             }
+
 
 
             if (((aCurrentKeyboardState.IsKeyDown(Keys.F) == true && mPreviousKeyboardState.IsKeyDown(Keys.F) == false)) ||

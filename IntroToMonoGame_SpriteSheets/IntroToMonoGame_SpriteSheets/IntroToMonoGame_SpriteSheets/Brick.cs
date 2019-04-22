@@ -65,6 +65,9 @@ namespace Flappy_Bat.Content
             Width = imgBrick.Width;
             Height = imgBrick.Height;
             fallSpeed = 1;
+       
+            FrameSize = Size.Width;
+        
 
             this.spriteBatch = spriteBatch;
             Visible = true;
@@ -89,13 +92,20 @@ namespace Flappy_Bat.Content
 
         public Brick(float x, float y, SpriteBatch spriteBatch, GameContent gameContent)
         {
+            imgBrick = gameContent.imgBrick;
+          
+            FrameSize = Size.Width;
+
             currState = State.Falling;
 
             X = GenRandX();
             Y = 0;
-            imgBrick = gameContent.imgBrick;
+
+            
+
             Width = imgBrick.Width;
             Height = imgBrick.Height;
+            Origin = new Vector2(Width/2, Height/2);
             this.spriteBatch = spriteBatch;
             this.gameContent = gameContent;
             Visible = true;

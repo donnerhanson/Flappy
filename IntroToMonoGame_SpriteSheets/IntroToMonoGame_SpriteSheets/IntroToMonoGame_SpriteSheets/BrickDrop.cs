@@ -14,9 +14,9 @@ namespace Flappy_Bat
     class BrickDrop : Brick
     {
         public new bool Visible { get; set; } // does brick still exist
-        // 7 rows, each with own color
-        // 10 per row
-        // 3 blank at top
+        public float GetX() { return FallingBrick.X; } // x position of brick on screen
+        public float GetY() { return FallingBrick.Y; } // y position of brick on screen
+
         // each brick is 16 x 50
 
         private int GenRandInt()
@@ -30,7 +30,7 @@ namespace Flappy_Bat
 
         public BrickDrop(float x, float y, SpriteBatch spriteBatch, GameContent gameContent) : base(x,y,spriteBatch,gameContent)
         {
-
+          
             float brickX = x;
             float brickY = y;
             Color color = Color.Firebrick;

@@ -15,6 +15,8 @@ namespace Flappy_Bat
         // The current position of the Sprite
         public Vector2 Position = new Vector2(0, 0);
 
+        public Vector2 Origin;
+
         // The texture object used when drawing the sprite
         public Texture2D mSpriteTexture;
 
@@ -54,16 +56,22 @@ namespace Flappy_Bat
                 mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
                 AssetName = theAssetName;
                 Size = new Rectangle(0, 0, (int)(mSpriteTexture.Width * Scale), (int)(mSpriteTexture.Height * Scale));
+            // Origin of the sprite
+            float orX = (float)mSpriteTexture.Width / 2;
+            float orY = (float)mSpriteTexture.Height / 2;
+            Vector2 Origin = new Vector2(orX, orY);
             Visible = true;
         }
 
         // Draw the sprite to the screen
         public virtual void Draw(SpriteBatch theSpriteBatch)
         {
+         
+
             if(Visible)
             theSpriteBatch.Draw(mSpriteTexture, Position,
                 new Rectangle(0, 0, mSpriteTexture.Width, mSpriteTexture.Height),
-                Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
+                Color.White, 0.0f, Origin, Scale, SpriteEffects.None, 0);
         }
 
         // Update the Sprite and change its position based on the passed in speed, direction and elapsed time.
